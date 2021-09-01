@@ -2,7 +2,6 @@ module Main where
 
 import Lib
 import System.IO (putStr)
-import GHC.IO (evaluate)
 
 decToHex number = algorithm number [] where
     algorithm 1 parsed = 1 : parsed
