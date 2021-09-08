@@ -2,3 +2,6 @@
 2021-09-01 08:12:57.134819448000 [48697(ThreadId 20)] CRITICAL REQUEST - invalid HANDLE. eof.
 2021-09-01 08:14:52.527495782000 [48817(ThreadId 20)] CRITICAL REQUEST - invalid HANDLE. eof.
 2021-09-01 08:33:06.968984667000 [53600(ThreadId 20)] CRITICAL REQUEST - invalid HANDLE. eof.
+2021-09-08 08:37:46 [ThreadId 19] ERROR phoityne - "error: parse error on input \8216where\8217"
+2021-09-08 08:37:51 [ThreadId 19] ERROR phoityne - "\"extractSourcePosition\" (line 2, column 6):\nunexpected end of input\nexpecting \"Stopped at \" or \"Stopped in \" [INPUT]*** Exception: Prelude.!!: index too large\nH>>= "
+2021-09-08 08:39:53 [ThreadId 19] ERROR phoityne - "\"extractSourcePosition\" (line 2, column 6):\nunexpected end of input\nexpecting \"Stopped at \" or \"Stopped in \" [INPUT]*** Exception: Prelude.!!: index too large\nH>>= "
