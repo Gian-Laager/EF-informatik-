@@ -1,6 +1,5 @@
 module Main where
 
-import Lib
 import System.IO (putStr)
 
 decToBin number = algorithm number [] where
@@ -8,7 +7,6 @@ decToBin number = algorithm number [] where
     algorithm 0 parsed = 0 : parsed
     algorithm number parsed = algorithm (number `div` 2) $ (number `mod` 2) : parsed
     
-hexCharacters :: [Char]
 hexCharacters = ['0', '1', '2', '3', '4', '5', '6','7','8','9','A','B','C', 'D','E','F']
     
 decToHex :: Int -> String
