@@ -1,7 +1,8 @@
 module Main where
 
-import Data.List (elemIndex)
-import System.IO (putStr)
+import Data.List 
+import System.IO 
+import Text.Read
 
 decToBin :: Int -> String
 decToBin = decToNumberSystem 2 binCharacters
@@ -27,19 +28,43 @@ numberSystemToDec base characters number = recursive base characters number $ le
       dec <- elemIndex (head number) characters
       rest <- recursive base characters (tail number) (figure - 1)
       return $ rest + (dec * (base ^ figure))
-      
+
 numberSystemToNumberSystem :: (String -> Maybe Int) -> (Int -> String) -> String -> Maybe String
 numberSystemToNumberSystem numToDec decToOtherNum number = do
-    dec <- numToDec number       
+    dec <- numToDec number
     return $ decToOtherNum dec
 
 hexToDec = numberSystemToDec 0x10 hexCharacters
 binToDec = numberSystemToDec 2 binCharacters
-binToHex bin = numberSystemToNumberSystem binToDec decToHex
-hexToBin hex = numberSystemToNumberSystem hexToDec decToBin
+binToHex = numberSystemToNumberSystem binToDec decToHex
+hexToBin = numberSystemToNumberSystem hexToDec decToBin
+
+convert :: [Char] -> [Char] -> String -> Maybe String
+convert "dec" "hex" number = decToHex <$> readMaybe number
+convert "dec" "bin" number = decToBin <$> readMaybe number
+convert "dec" "dec" number = Just number
+
+convert "hex" "hex" number = Just number
+convert "hex" "bin" number = hexToBin number
+convert "hex" "dec" number = show <$> hexToDec number
+
+convert "bin" "hex" number = binToHex number
+convert "bin" "bin" number = Just number
+convert "bin" "dec" number = show <$> binToDec number
+
+convert _ _ _ = Just "Invalid numberSystems"
+
+printMaybeNumber (Just num) = putStrLn num
+printMaybeNumber _ = hPutStrLn stderr "Parsing Error!"
 
 main :: IO ()
 main = do
+  putStrLn "Input number system (dec | hex | bin): "
+  inputNumberSystem <- getLine
+  putStrLn "Output number system (dec | hex | bin): "
+  outputNumberSystem <- getLine
+  putStrLn "number to convert: "
   numberString <- getLine
-  print $ hexToDec numberString
+  printMaybeNumber $ convert inputNumberSystem outputNumberSystem numberString
+  putStrLn "\n######################################\n"
   main
