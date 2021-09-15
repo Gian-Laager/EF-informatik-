@@ -28,14 +28,15 @@ numberSystemToDec base characters number = recursive base characters number $ le
       rest <- recursive base characters (tail number) (figure - 1)
       return $ rest + (dec * (base ^ figure))
       
+numberSystemToNumberSystem :: (String -> Maybe Int) -> (Int -> String) -> String -> Maybe String
+numberSystemToNumberSystem numToDec decToOtherNum number = do
+    dec <- numToDec number       
+    return $ decToOtherNum dec
+
 hexToDec = numberSystemToDec 0x10 hexCharacters
 binToDec = numberSystemToDec 2 binCharacters
-binToHex bin = do
-    dec <- binToDec bin
-    return $ decToHex dec
-hexToBin hex = do
-    dec <- hexToDec hex
-    return $ decToBin dec
+binToHex bin = numberSystemToNumberSystem binToDec decToHex
+hexToBin hex = numberSystemToNumberSystem hexToDec decToBin
 
 main :: IO ()
 main = do
